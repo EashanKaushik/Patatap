@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
+    <script src="assests/js/lib/howler.js-master/dist/howler.js"></script>
+    <script type="text/javascript" src="assests/js/lib/Paper_js/dist/paper-full.js"></script>
+    <script type="text/paperscript" canvas="myCanvas" >
+    var keyData={
+        e:{
+            color:"purple",
+            sounds:new Howl({src: ["assests/sounds/bubbles.mp3"]})
+        },
+        a:{
+            color:"green",
+            sounds:new Howl({src: ["assests/sounds/clay.mp3"]})
+        },
+        s:{
+            color:"orange",
+            sounds:new Howl({src: ["assests/sounds/corona.mp3"]})
+        },
+        h:{
+            color:"red",
+            sounds:new Howl({src: ["assests/sounds/moon.mp3"]})
+        },
+        k:{
+            color:"yellow",
+            sounds:new Howl({src: ["assests/sounds/timer.mp3"]})
+        },
+        u:{
+            color:"white",
+            sounds:new Howl({src: ["assests/sounds/glimmer.mp3"]})
+        },
+        i:{
+            color:"blue",
+            sounds:new Howl({src: ["assests/sounds/ufo.mp3"]})
+        },
+        n:{
+            color:"grey",
+            sounds:new Howl({src: ["assests/sounds/wipe.mp3"]})
+        }
+        
+    }
+
+    var circle=[];
+
+    function onKeyDown(event) {
+        if(keyData[event.key]){
+            var maxPoint=new Point(view.size.width,view.size.height);
+            var random=Point.random();
+            var point=maxPoint*random;
+            var myCircle = new Path.Circle(point, 500);
+            myCircle.fillColor = keyData[event.key].color;
+            keyData[event.key].sounds.play();
+            circle.push(myCircle);
+        }
+    }
+    function onFrame(event) {
+        for(var i=0;i<circle.length;i++){
+            circle[i].fillColor.hue += 1;
+            circle[i].scale(.9);
+        }
+    }
+    </script>
+    <title>Document</title>
+    <link rel="stylesheet" href="assests/css/patatap.css">
+</head>
+<body>
+    <div>
+        <h1>Type: 
+            <span id="e">e</span>
+            <span id="a1">a</span>
+            <span id="s1">s</span>
+            <span id="h1">h</span>
+            <span id="a2">a</span>
+            <span id="n">n</span>
+            <span id="k1">k</span>
+            <span id="a3">a</span>
+            <span id="u">u</span>
+            <span id="s2">s</span>
+            <span id="h2">h</span>
+            <span id="i">i</span>
+            <span id="k2">k</span>
+        </h1>
+        <input type="text" id="searchbox">
+    </div>
+    <canvas id="myCanvas" resize>
+    </canvas>
+</body>
+</html>
